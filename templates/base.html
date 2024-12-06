@@ -1,0 +1,34 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Concessionária{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="/" class="{% if request.path == '/' %}active{% endif %}">Home</a>
+        <a href="/carros/" class="{% if request.path == '/carros/' %}active{% endif %}">Listar Carros</a>
+
+        <a href="/estatisticas/" class="{% if request.path == '/estatisticas/' %}active{% endif %}">Estatísticas</a>
+        <a href="/carros/relatorio/" target="_blank"
+            class="{% if request.path == '/carros/relatorio/' %}active{% endif %}">Gerar Relatório</a>
+    </nav>
+
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+
+</html>

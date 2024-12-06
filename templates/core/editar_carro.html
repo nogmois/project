@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Editar Carro{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Editar Carro</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Exibir a imagem atual no campo de upload -->
+        <div>
+            <label for="id_imagem">Imagem Atual:</label>
+            {% if form.instance.imagem %}
+            <div style="margin-bottom: 10px;">
+                <img src="{{ form.instance.imagem.url }}" alt="Imagem Atual do Carro"
+                    style="max-width: 100%; width: 300px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Campos do formulário -->
+        <div>
+            {{ form.modelo.label_tag }} {{ form.modelo }}
+        </div>
+        <div>
+            {{ form.marca.label_tag }} {{ form.marca }}
+        </div>
+        <div>
+            {{ form.ano.label_tag }} {{ form.ano }}
+        </div>
+        <div>
+            {{ form.placa.label_tag }} {{ form.placa }}
+        </div>
+
+        <!-- Botão de submissão -->
+        <div style="margin-top: 20px; text-align: center;">
+            <button type="submit">Salvar</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

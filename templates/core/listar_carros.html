@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Lista de Carros{% endblock %}
+
+{% block content %}
+<h1>Lista de Carros</h1>
+
+<!-- Link para o relatório -->
+<div style="text-align: right; margin-bottom: 20px;">
+    <a href="/carros/cadastrar/" class="button">+ Adicionar carro</a>
+</div>
+
+<!-- Botões para alternar entre as visualizações -->
+<div style="margin-bottom: 20px; text-align: right;">
+    <button id="btn-tabela" class="button">Ver em Tabela</button>
+    <button id="btn-grade" class="button">Ver em Grade</button>
+</div>
+
+<!-- Tabela de Carros -->
+<table id="tabela-carros" style="width: 100%; border-collapse: collapse;">
+    <thead>
+        <tr>
+            <th>Modelo</th>
+            <th>Marca</th>
+            <th>Ano</th>
+            <th>Placa</th>
+            <th>Imagem</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for carro in carros %}
+        <tr>
+            <td>{{ carro.modelo }}</td>
+            <td>{{ carro.marca }}</td>
+            <td>{{ carro.ano }}</td>
+            <td>{{ carro.placa }}</td>
+            <td>
+                {% if carro.imagem %}
+                <img src="{{ carro.imagem.url }}" alt="Imagem do carro" width="100">
+                {% else %}
+                Sem imagem
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'editar_carro' carro.pk %}">Editar</a> |
+                <a href="{% url 'excluir_carro' carro.pk %}">Excluir</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Grade de Carros -->
+<div id="grade-carros" style="display: none; margin-top: 20px;">
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+        {% for carro in carros %}
+        <div style="border: 1px solid #ccc; padding: 10px; text-align: center; border-radius: 8px;">
+            {% if carro.imagem %}
+            <img src="{{ carro.imagem.url }}" alt="Imagem do carro"
+                style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 8px;">
+            {% else %}
+            <p>Sem imagem</p>
+            {% endif %}
+            <h3>{{ carro.modelo }}</h3>
+            <p>Marca: {{ carro.marca }}</p>
+            <p>Ano: {{ carro.ano }}</p>
+            <p>Placa: {{ carro.placa }}</p>
+            <div style="margin-top: 10px;">
+                <a href="{% url 'editar_carro' carro.pk %}" class="button">Editar</a>
+                <a href="{% url 'excluir_carro' carro.pk %}" class="button">Excluir</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    // Alternar entre Tabela e Grade
+    document.getElementById('btn-tabela').addEventListener('click', function () {
+        document.getElementById('tabela-carros').style.display = 'table';
+        document.getElementById('grade-carros').style.display = 'none';
+    });
+
+    document.getElementById('btn-grade').addEventListener('click', function () {
+        document.getElementById('tabela-carros').style.display = 'none';
+        document.getElementById('grade-carros').style.display = 'block';
+    });
+</script>
+{% endblock %}
