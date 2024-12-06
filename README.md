@@ -62,7 +62,7 @@ python manage.py createsuperuser
 # 7. Iniciar o servidor de desenvolvimento
 python manage.py runserver
 
-# Acesse em http://127.0.0.1:8000
+# Acesse em http://127.0.0.1:8000/carros/
 ```
 
 ## 🌐 **Rotas disponíveis**
